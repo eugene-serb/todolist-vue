@@ -1,13 +1,5 @@
 'use strict';
 
-class Task {
-    constructor(title) {
-        this.title = title;
-        this.completed = false;
-        this.important = false;
-    };
-};
-
 Vue.createApp({
     data: () => {
         return {
@@ -18,7 +10,12 @@ Vue.createApp({
     methods: {
         addTask() {
             if (this.input) {
-                this.tasks.push(new Task(this.input));
+                const newTask = {
+                    title: this.input,
+                    completed: false,
+                    important: false,
+                };
+                this.tasks.push(newTask);
                 this.input = '';
                 this.setLocalStorage(this.tasks);
             };
@@ -50,7 +47,7 @@ Vue.createApp({
             }
         },
         getLocalStorage() {
-            return localStorage.tasks ? JSON.parse(localStorage.getItem('tasks')) : [];
+            return localStorage.tasksvue ? JSON.parse(localStorage.getItem('tasksvue')) : [];
         },
         setLocalStorage(items) {
             localStorage.setItem('tasks', JSON.stringify(items));
