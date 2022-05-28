@@ -50,7 +50,7 @@ Vue.createApp({
             return localStorage.tasksvue ? JSON.parse(localStorage.getItem('tasksvue')) : [];
         },
         setLocalStorage(items) {
-            localStorage.setItem('tasks', JSON.stringify(items));
+            localStorage.setItem('tasksvue', JSON.stringify(items));
         }
     },
     computed: {
