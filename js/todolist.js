@@ -14,6 +14,7 @@ Vue.createApp({
                     title: this.input,
                     completed: false,
                     important: false,
+                    deleted: false,
                 };
                 this.tasks.push(newTask);
                 this.input = '';
@@ -21,8 +22,13 @@ Vue.createApp({
             };
         },
         deleteAllTasks() {
-            this.tasks = [];
-            this.setLocalStorage(this.tasks);
+            this.tasks.forEach((item) => {
+                item.deleted = true;
+            });
+            setTimeout(() => {
+                this.tasks = [];
+                this.setLocalStorage(this.tasks);
+            }, 500);
         },
         markComplete(index) {
             this.tasks[index].completed = !this.tasks[index].completed;
@@ -33,8 +39,11 @@ Vue.createApp({
             this.setLocalStorage(this.tasks);
         },
         deleteTask(index) {
-            this.tasks.splice(index, 1);
-            this.setLocalStorage(this.tasks);
+            this.tasks[index].deleted = true;
+            setTimeout(() => {
+                this.tasks.splice(index, 1);
+                this.setLocalStorage(this.tasks);
+            }, 500);
         },
         filterTasks() {
             if (this.tasks.length) {
@@ -44,23 +53,23 @@ Vue.createApp({
                 const completedTasks = this.tasks.length && this.tasks.filter(item => item.completed == true && item.important == false);
 
                 this.tasks = [...activeImportantTasks, ...activeTasks, ...completedImportantTasks, ...completedTasks];
-            }
+            };
         },
         getLocalStorage() {
             return localStorage.tasksvue ? JSON.parse(localStorage.getItem('tasksvue')) : [];
         },
         setLocalStorage(items) {
             localStorage.setItem('tasksvue', JSON.stringify(items));
-        }
+        },
     },
     computed: {
         sortedTasks() {
             this.filterTasks();
             return this.tasks;
-        }
+        },
     },
     mounted() {
         this.tasks = this.getLocalStorage();
-    }
+    },
 }).mount('#todoList');
 

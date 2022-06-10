@@ -112,7 +112,7 @@
                 <div class="todoList-list">
                     <h3>Tasks:</h3>
                     <ul class="todoList-wrapper" v-cloak>
-                        <li :class="['taskItem', task.completed ? 'taskItem_completed' : '', task.important ? 'taskItem_important' : '']" v-for="(task, index) in sortedTasks" :key="task">
+                        <li :class="['taskItem', task.completed ? 'taskItem_completed' : '', task.important ? 'taskItem_important' : '', task.deleted ? 'taskItem_deletion' : '']" v-for="(task, index) in sortedTasks" :key="task">
                             <div class="taskItem__buttonsContainer">
                                 <button @click="markComplete(index)" :class="['taskItem__button', task.completed ? 'taskItem__isCompleted' : 'taskItem__isNotCompleted']"></button>
                                 <button @click="markImportant(index)" :class="['taskItem__button', task.important ? 'taskItem__isImportant' : 'taskItem__isNotImportant']"></button>

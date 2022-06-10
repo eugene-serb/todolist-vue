@@ -61,7 +61,7 @@
     border: 2px solid var(--color-link-hover);
 }
 
-.taskItem.deletion {
+.taskItem_deletion {
     animation: opacity 0.5s ease-in-out;
 }
 
@@ -69,14 +69,12 @@
     from {
         opacity: 1;
     }
-
     to {
         opacity: 0;
     }
 }
 
-.taskItem__buttonsContainer {
-}
+.taskItem__buttonsContainer {}
 
 .taskItem__button {
     padding: 0;
