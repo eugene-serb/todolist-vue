@@ -4,13 +4,25 @@ ToDoList in ***Vue.js***, ***JavaScript*** and ***HTML with CSS***. **[[rep](htt
 
 This is a simple to-do list web application. Helps you organize tasks and plan projects.
 
-There is a few files:
-1. ***index.html*** – a file with a form and another elements. This contains a template part of a vue-component of the todo-list.
-2. ***css/todolist.css*** – styles for the todolist application. This contains a styles part of a vue-component of the todo-list. Some of styles are in the main styles on [this page](https://eugene-serb.github.io/).
-3. ***js/todolist.js*** – all scripts in the todolist application. This contains a script part of a vue-component of the todo-list.
-4. ***img/%file name%.svg*** – all application icons.
-
 If you are interested in this or my other projects, or would like to suggest and share ideas with me, or just talk to me, contact me: *[@eugene_serb](https://t.me/eugene_serb)*
 
 Follow me on Twitter: *[@eugene_serb](https://twitter.com/eugene_serb)*
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
 

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <!--<title><%= htmlWebpackPlugin.options.title %></title>-->
     <title>Eugene Serb – ToDo List Vue</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="color-scheme" content="light dark" />
     <meta name="robots" content="all" />
 
     <link rel="canonical" href="https://eugene-serb.github.io/todolist-vue/" />
-    <link rel="shortcut icon" type="image/x-icon" href="https://eugene-serb.github.io/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="<%= BASE_URL %>favicon.ico" />
     <link rel="stylesheet" type="text/css" href="https://eugene-serb.github.io/css/styles.css" />
     <link rel="stylesheet" type="text/css" href="css/todolist.css" />
 
@@ -67,7 +68,6 @@
         });
     </script>
     <!-- /Yandex.Metrika counter -->
-    
     <style>
         [v-cloak] {
             display: none;
@@ -103,42 +103,7 @@
         <h1 class="visually-hidden">Eugene Serb – ToDo List Vue</h1>
         <section class="post">
             <h2 class="post__header">ToDo List Vue</h2>
-            <div class="todoList" id="todoList">
-                <fieldset class="todoList-form">
-                    <input type="text" placeholder="Description" class="todoList-form__description-task" v-model="input" />
-                    <button class="todoList-form__addTaskButton" @click="addTask">Add task</button>
-                    <button class="todoList-form__deleteAllTaskButton" @click="deleteAllTasks">Delete all</button>
-                </fieldset>
-                <div class="todoList-list">
-                    <h3>Tasks:</h3>
-                    <ul class="todoList-wrapper" v-cloak>
-                        <li v-for="(task, index) in sortedTasks"
-                            :key="task.id"
-                            :class="[
-                            'taskItem',
-                            task.completed ? 'taskItem_completed' : '',
-                            task.important ? 'taskItem_important' : '',
-                            task.deleted ? 'taskItem_deletion' : '',
-                            ]">
-                            <div class="taskItem__buttonsContainer">
-                                <button @click="markComplete(task.id)"
-                                        :class="[
-                                        'taskItem__button',
-                                        task.completed ? 'taskItem__isCompleted' : 'taskItem__isNotCompleted'
-                                        ]"></button>
-                                <button @click="markImportant(task.id)"
-                                        :class="[
-                                        'taskItem__button',
-                                        task.important ? 'taskItem__isImportant' : 'taskItem__isNotImportant'
-                                        ]"></button>
-                                <button @click="deleteTask(task.id)"
-                                        class="taskItem__button taskItem__deleteButton"></button>
-                            </div>
-                            <span class="taskItem__description" v-text="task.title"></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <div id="app"></div>
         </section>
     </main>
 
@@ -151,7 +116,6 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/vue@next"></script>
     <script src="js/todolist.js"></script>
     <script src="https://eugene-serb.github.io/js/scripts.js"></script>
     <noscript><div><img src="https://mc.yandex.ru/watch/79722217" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
