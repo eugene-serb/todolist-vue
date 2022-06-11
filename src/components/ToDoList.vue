@@ -118,7 +118,6 @@
         computed: {
             sortedTasks() {
                 const sortedTasks = this.filterTasks();
-                console.log(sortedTasks);
                 return sortedTasks;
             },
         },
