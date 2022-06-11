@@ -11,6 +11,7 @@ Vue.createApp({
         addTask() {
             if (this.input) {
                 const newTask = {
+                    id: Date.now(),
                     title: this.input,
                     completed: false,
                     important: false,
@@ -30,20 +31,32 @@ Vue.createApp({
                 this.setLocalStorage(this.tasks);
             }, 500);
         },
-        markComplete(index) {
-            this.tasks[index].completed = !this.tasks[index].completed;
+        markComplete(id) {
+            this.tasks.forEach(task => {
+                if (task.id === id) {
+                    task.completed = !task.completed;
+                };
+            });
             this.setLocalStorage(this.tasks);
         },
-        markImportant(index) {
-            this.tasks[index].important = !this.tasks[index].important;
+        markImportant(id) {
+            this.tasks.forEach(task => {
+                if (task.id === id) {
+                    task.important = !task.important;
+                };
+            });
             this.setLocalStorage(this.tasks);
         },
-        deleteTask(index) {
-            this.tasks[index].deleted = true;
-            setTimeout(() => {
-                this.tasks.splice(index, 1);
-                this.setLocalStorage(this.tasks);
-            }, 500);
+        deleteTask(id) {
+            this.tasks.forEach((task, index) => {
+                if (task.id === id) {
+                    task.deleted = true;
+                    setTimeout(() => {
+                        this.tasks.splice(index, 1);
+                        this.setLocalStorage(this.tasks);
+                    }, 500);
+                };
+            });
         },
         filterTasks() {
             if (this.tasks.length) {
@@ -52,7 +65,7 @@ Vue.createApp({
                 const completedImportantTasks = this.tasks.length && this.tasks.filter(item => item.completed == true && item.important == true);
                 const completedTasks = this.tasks.length && this.tasks.filter(item => item.completed == true && item.important == false);
 
-                this.tasks = [...activeImportantTasks, ...activeTasks, ...completedImportantTasks, ...completedTasks];
+                return [...activeImportantTasks, ...activeTasks, ...completedImportantTasks, ...completedTasks];
             };
         },
         getLocalStorage() {
@@ -64,8 +77,9 @@ Vue.createApp({
     },
     computed: {
         sortedTasks() {
-            this.filterTasks();
-            return this.tasks;
+            const sortedTasks = this.filterTasks();
+            console.log(sortedTasks);
+            return sortedTasks;
         },
     },
     mounted() {
