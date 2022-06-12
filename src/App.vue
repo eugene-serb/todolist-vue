@@ -3,8 +3,7 @@
 </template>
 
 <script>
-    import ToDoList from './components/ToDoList.vue';
-
+    import ToDoList from '@/components/ToDoList.vue';
     export default {
         name: 'App',
         components: {
@@ -13,7 +12,5 @@
     };
 </script>
 
-<style>
-
-</style>
+<style scoped></style>
 

@@ -1,64 +1,40 @@
 <template>
     <div class="todoList" id="todoList">
-        <fieldset class="todoList-form">
-            <input type="text" placeholder="Description" class="todoList-form__description-task" v-model="input" />
-            <button class="todoList-form__addTaskButton" @click="addTask">Add task</button>
-            <button class="todoList-form__deleteAllTaskButton" @click="deleteAllTasks">Delete all</button>
-        </fieldset>
-        <div class="todoList-list">
-            <h3>Tasks:</h3>
-            <ul class="todoList-wrapper" v-cloak>
-                <li v-for="(task, index) in sortedTasks"
-                    :key="task.id"
-                    :class="[
-                            'taskItem',
-                            task.completed ? 'taskItem_completed' : '',
-                            task.important ? 'taskItem_important' : '',
-                            task.deleted ? 'taskItem_deletion' : '',
-                            ]">
-                    <div class="taskItem__buttonsContainer">
-                        <button @click="markComplete(task.id)"
-                                :class="[
-                                        'taskItem__button',
-                                        task.completed ? 'taskItem__isCompleted' : 'taskItem__isNotCompleted'
-                                        ]"></button>
-                        <button @click="markImportant(task.id)"
-                                :class="[
-                                        'taskItem__button',
-                                        task.important ? 'taskItem__isImportant' : 'taskItem__isNotImportant'
-                                        ]"></button>
-                        <button @click="deleteTask(task.id)"
-                                class="taskItem__button taskItem__deleteButton"></button>
-                    </div>
-                    <span class="taskItem__description" v-text="task.title"></span>
-                </li>
-            </ul>
-        </div>
+        <Form @addTask="addTask"
+              @deleteAllTasks="deleteAllTasks" />
+        <List :sortedTasks="sortedTasks"
+              @markComplete="markComplete"
+              @markImportant="markImportant"
+              @deleteTask="deleteTask" />
     </div>
 </template>
 
 <script>
+    import Form from '@/components/ToDoListForm.vue';
+    import List from '@/components/ToDoListList.vue';
     export default {
         name: 'ToDoList',
         props: {},
+        components: {
+            Form: Form,
+            List: List,
+        },
         data: () => {
             return {
                 tasks: [],
-                input: ''
             };
         },
         methods: {
-            addTask() {
-                if (this.input) {
+            addTask(task) {
+                if (task) {
                     const newTask = {
                         id: Date.now(),
-                        title: this.input,
+                        title: task,
                         completed: false,
                         important: false,
                         deleted: false,
                     };
                     this.tasks.push(newTask);
-                    this.input = '';
                     this.setLocalStorage(this.tasks);
                 };
             },
@@ -128,6 +104,10 @@
 </script>
 
 <style scoped>
-
+    .todoList {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
 </style>
 
