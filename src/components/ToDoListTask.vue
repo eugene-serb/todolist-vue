@@ -56,7 +56,7 @@
         margin: 8px 0;
         padding: 8px;
         border: 2px solid var(--color-border);
-        border-radius: 4px;
+        border-radius: var(--number-border-radius);
         background-color: var(--color-background);
         display: flex;
         justify-content: flex-start;
@@ -88,7 +88,6 @@
         from {
             opacity: 1;
         }
-
         to {
             opacity: 0;
         }
