@@ -55,7 +55,7 @@
     .taskItem {
         margin: 8px 0;
         padding: 8px;
-        border: 2px dashed var(--color-border);
+        border: 2px solid var(--color-border);
         border-radius: 4px;
         background-color: var(--color-background);
         display: flex;
