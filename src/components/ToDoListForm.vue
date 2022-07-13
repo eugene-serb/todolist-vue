@@ -5,33 +5,39 @@
                class="todoList-form__description-task"
                v-model="input" />
         <button class="todoList-form__addTaskButton"
-                @click="addTask">Add task</button>
+                @click="addTask">
+            Add task
+        </button>
         <button class="todoList-form__deleteAllTaskButton"
-                @click="deleteAllTasks">Delete all</button>
+                @click="deleteAllTasks">
+            Delete all
+        </button>
     </fieldset>
 </template>
 
-<script>
-    export default {
-        name: 'Form',
+<script lang="ts">
+    import { defineComponent } from 'vue';
+
+    export default defineComponent({
+        name: 'ToDoListForm',
         data: () => {
             return {
                 input: '',
             };
         },
         methods: {
-            addTask() {
+            addTask(): void {
                 this.$emit('addTask', this.input);
                 this.input = '';
             },
-            deleteAllTasks() {
+            deleteAllTasks(): void {
                 this.$emit('deleteAllTasks');
             },
         },
-    };
-</script>
+    });
+    </script>
 
-<style scoped>
+<style>
     .todoList-form {
         display: grid;
         grid-template-columns: 1fr 1fr;

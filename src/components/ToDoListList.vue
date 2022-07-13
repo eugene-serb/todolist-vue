@@ -2,45 +2,48 @@
     <div class="todoList-list">
         <h3>Tasks:</h3>
         <ul class="todoList-wrapper">
-            <Task v-for="(task, index) in sortedTasks"
-                  :task="task"
-                  @markComplete="markComplete"
-                  @markImportant="markImportant"
-                  @deleteTask="deleteTask" />
+            <ToDoListTask v-for="task in sortedTasks"
+                          :key="task.id"
+                          :task="task"
+                          @markComplete="markComplete"
+                          @markImportant="markImportant"
+                          @deleteTask="deleteTask" />
         </ul>
     </div>
 </template>
 
-<script>
-    import Task from '@/components/ToDoListTask.vue';
-    export default {
-        name: 'List',
+<script lang="ts">
+    import { defineComponent } from 'vue';
+    import ToDoListTask from '@/components/ToDoListTask.vue';
+
+    export default defineComponent({
+        name: 'ToDoListList',
         props: {
             sortedTasks: {
                 type: Array,
             },
         },
         components: {
-            Task: Task,
+            ToDoListTask: ToDoListTask,
         },
         methods: {
-            markComplete(id) {
+            markComplete(id: number): void {
                 this.$emit('markComplete', id);
             },
-            markImportant(id) {
+            markImportant(id: number): void {
                 this.$emit('markImportant', id);
             },
-            deleteTask(id) {
+            deleteTask(id: number): void {
                 this.$emit('deleteTask', id);
             },
         },
-    };
+    });
 </script>
 
-<style scoped>
+<style>
     .todoList-wrapper {
-        list-style: none;
         padding: 0;
+        list-style: none;
     }
 </style>
 
