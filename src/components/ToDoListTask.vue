@@ -24,39 +24,36 @@
     </li>
 </template>
 
-<script>
-    export default {
-        name: 'Task',
+<script lang="ts">
+    import { defineComponent } from 'vue';
+
+    export default defineComponent({
+        name: 'ToDoListTask',
         props: {
             task: {
                 type: Object,
             },
         },
-        data: () => {
-            return {
-
-            };
-        },
         methods: {
-            markComplete(id) {
+            markComplete(id: number): void {
                 this.$emit('markComplete', id);
             },
-            markImportant(id) {
+            markImportant(id: number): void {
                 this.$emit('markImportant', id);
             },
-            deleteTask(id) {
+            deleteTask(id: number): void {
                 this.$emit('deleteTask', id);
             },
         },
-    };
+    });
 </script>
 
-<style scoped>
+<style>
     .taskItem {
         margin: 8px 0;
         padding: 8px;
-        border: 2px dashed var(--color-border);
-        border-radius: 4px;
+        border: 2px solid var(--color-border);
+        border-radius: var(--number-border-radius);
         background-color: var(--color-background);
         display: flex;
         justify-content: flex-start;
@@ -88,13 +85,9 @@
         from {
             opacity: 1;
         }
-
         to {
             opacity: 0;
         }
-    }
-
-    .taskItem__buttonsContainer {
     }
 
     .taskItem__button {
@@ -112,46 +105,36 @@
         }
 
     @media (prefers-color-scheme: light) {
-
         .taskItem__isNotCompleted {
             background-image: url('@/assets/img/check_box_outline_blank_black_24dp.svg');
         }
-
         .taskItem__isCompleted {
             background-image: url('@/assets/img/check_box_black_24dp.svg');
         }
-
         .taskItem__isNotImportant {
             background-image: url('@/assets/img/star_border_black_24dp.svg');
         }
-
         .taskItem__isImportant {
             background-image: url('@/assets/img/star_black_24dp.svg');
         }
-
         .taskItem__deleteButton {
             background-image: url('@/assets/img/delete_black_24dp.svg');
         }
     }
 
     @media (prefers-color-scheme: dark) {
-
         .taskItem__isNotCompleted {
             background-image: url('@/assets/img/check_box_outline_blank_white_24dp.svg');
         }
-
         .taskItem__isCompleted {
             background-image: url('@/assets/img/check_box_white_24dp.svg');
         }
-
         .taskItem__isNotImportant {
             background-image: url('@/assets/img/star_border_white_24dp.svg');
         }
-
         .taskItem__isImportant {
             background-image: url('@/assets/img/star_white_24dp.svg');
         }
-
         .taskItem__deleteButton {
             background-image: url('@/assets/img/delete_white_24dp.svg');
         }
