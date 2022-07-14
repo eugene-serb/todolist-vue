@@ -15,11 +15,27 @@
     import ToDoListList from '@/components/ToDoListList.vue';
 
     interface ITask {
-        id: number,
+        readonly id: number,
         title: string,
         completed: boolean,
         important: boolean,
         deleted: boolean,
+    }
+
+    class Task implements ITask {
+        readonly id: number;
+        title: string;
+        completed: boolean;
+        important: boolean;
+        deleted: boolean;
+
+        constructor(title: string) {
+            this.id = Date.now();
+            this.title = title;
+            this.completed = false;
+            this.important = false;
+            this.deleted = false;
+        }
     }
 
     export default defineComponent({
@@ -31,20 +47,14 @@
         },
         data: () => {
             return {
-                tasks: [] as ITask[],
+                tasks: [] as Task[],
             };
         },
         methods: {
-            addTask(taskTitle: string): void {
-                if (taskTitle) {
-                    const newTask: ITask = {
-                        id: Date.now(),
-                        title: taskTitle,
-                        completed: false,
-                        important: false,
-                        deleted: false,
-                    };
-                    this.tasks.push(newTask);
+            addTask(title: string): void {
+                if (title) {
+                    const task: Task = new Task(title);
+                    this.tasks.push(task);
                     this.setLocalStorage(this.tasks);
                 }
             },
@@ -84,27 +94,27 @@
                     }
                 });
             },
-            filterTasks(): ITask[] {
+            filterTasks(tasks: Task[]): Task[] {
                 if (this.tasks.length > 0) {
-                    const activeImportantTasks = this.tasks.length && this.tasks.filter(item => item.completed === false && item.important === true);
-                    const activeTasks = this.tasks.length && this.tasks.filter(item => item.completed === false && item.important === false);
-                    const completedImportantTasks = this.tasks.length && this.tasks.filter(item => item.completed === true && item.important === true);
-                    const completedTasks = this.tasks.length && this.tasks.filter(item => item.completed === true && item.important === false);
+                    const activeImportantTasks = tasks.length && tasks.filter(item => item.completed === false && item.important === true);
+                    const activeTasks = tasks.length && tasks.filter(item => item.completed === false && item.important === false);
+                    const completedImportantTasks = tasks.length && tasks.filter(item => item.completed === true && item.important === true);
+                    const completedTasks = tasks.length && tasks.filter(item => item.completed === true && item.important === false);
 
-                    return [...(activeImportantTasks as ITask[]), ...(activeTasks as ITask[]), ...(completedImportantTasks as ITask[]), ...(completedTasks as ITask[])];
+                    return [...(activeImportantTasks as Task[]), ...(activeTasks as Task[]), ...(completedImportantTasks as Task[]), ...(completedTasks as Task[])];
                 }
                 return [];
             },
-            getLocalStorage(): ITask[] {
+            getLocalStorage(): Task[] {
                 return localStorage.tasksvue ? JSON.parse(localStorage.getItem('tasksvue') || '{}') : [];
             },
-            setLocalStorage(items: ITask[]): void {
-                localStorage.setItem('tasksvue', JSON.stringify(items));
+            setLocalStorage(tasks: Task[]): void {
+                localStorage.setItem('tasksvue', JSON.stringify(tasks));
             },
         },
         computed: {
             sortedTasks() {
-                const sortedTasks = this.filterTasks();
+                const sortedTasks = this.filterTasks(this.tasks);
                 return sortedTasks;
             },
         },
