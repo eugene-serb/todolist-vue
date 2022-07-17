@@ -13,30 +13,7 @@
     import { defineComponent } from 'vue';
     import ToDoListForm from '@/components/ToDoListForm.vue';
     import ToDoListList from '@/components/ToDoListList.vue';
-
-    interface ITask {
-        readonly id: number,
-        title: string,
-        completed: boolean,
-        important: boolean,
-        deleted: boolean,
-    }
-
-    class Task implements ITask {
-        readonly id: number;
-        title: string;
-        completed: boolean;
-        important: boolean;
-        deleted: boolean;
-
-        constructor(title: string) {
-            this.id = Date.now();
-            this.title = title;
-            this.completed = false;
-            this.important = false;
-            this.deleted = false;
-        }
-    }
+    import { Task } from '@/components/task';
 
     export default defineComponent({
         name: 'ToDoList',
@@ -53,35 +30,17 @@
         methods: {
             addTask(title: string): void {
                 if (title) {
-                    const task: Task = new Task(title);
-                    this.tasks.push(task);
-                    this.setLocalStorage(this.tasks);
+                    const task: Task = new Task(title as string);
+                    this.tasks.push(task as Task);
+                    this.setLocalStorage(this.tasks as Task[]);
                 }
             },
             deleteAllTasks(): void {
-                this.tasks.forEach((item) => {
-                    item.deleted = true;
-                });
+                this.tasks.forEach(task => task.deleted = true);
                 setTimeout(() => {
-                    this.tasks = [];
-                    this.setLocalStorage(this.tasks);
+                    this.tasks = [] as Task[];
+                    this.setLocalStorage(this.tasks as Task[]);
                 }, 500);
-            },
-            markComplete(id: number): void {
-                this.tasks.forEach(task => {
-                    if (task.id === id) {
-                        task.completed = !task.completed;
-                    }
-                });
-                this.setLocalStorage(this.tasks);
-            },
-            markImportant(id: number): void {
-                this.tasks.forEach(task => {
-                    if (task.id === id) {
-                        task.important = !task.important;
-                    }
-                });
-                this.setLocalStorage(this.tasks);
             },
             deleteTask(id: number): void {
                 this.tasks.forEach((task, index) => {
@@ -89,10 +48,26 @@
                         task.deleted = true;
                         setTimeout(() => {
                             this.tasks.splice(index, 1);
-                            this.setLocalStorage(this.tasks);
+                            this.setLocalStorage(this.tasks as Task[]);
                         }, 500);
                     }
                 });
+            },
+            markComplete(id: number): void {
+                this.tasks.forEach(task => {
+                    if (task.id === id) {
+                        task.completed = !task.completed;
+                    }
+                });
+                this.setLocalStorage(this.tasks as Task[]);
+            },
+            markImportant(id: number): void {
+                this.tasks.forEach(task => {
+                    if (task.id === id) {
+                        task.important = !task.important;
+                    }
+                });
+                this.setLocalStorage(this.tasks as Task[]);
             },
             filterTasks(tasks: Task[]): Task[] {
                 if (this.tasks.length > 0) {
@@ -103,19 +78,21 @@
 
                     return [...(activeImportantTasks as Task[]), ...(activeTasks as Task[]), ...(completedImportantTasks as Task[]), ...(completedTasks as Task[])];
                 }
-                return [];
+                return [] as Task[];
             },
             getLocalStorage(): Task[] {
-                return localStorage.tasksvue ? JSON.parse(localStorage.getItem('tasksvue') || '{}') : [];
+                return localStorage.tasksvue
+                    ? JSON.parse(localStorage.getItem('tasksvue') || '{}') as Task[]
+                    : [] as Task[];
             },
             setLocalStorage(tasks: Task[]): void {
                 localStorage.setItem('tasksvue', JSON.stringify(tasks));
             },
         },
         computed: {
-            sortedTasks() {
-                const sortedTasks = this.filterTasks(this.tasks);
-                return sortedTasks;
+            sortedTasks(): Task[] {
+                const sortedTasks: Task[] = this.filterTasks(this.tasks as Task[]);
+                return sortedTasks as Task[];
             },
         },
         mounted() {

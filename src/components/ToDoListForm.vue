@@ -22,12 +22,12 @@
         name: 'ToDoListForm',
         data: () => {
             return {
-                input: '',
+                input: '' as string,
             };
         },
         methods: {
             addTask(): void {
-                this.$emit('addTask', this.input);
+                this.$emit('addTask', this.input as string);
                 this.input = '';
             },
             deleteAllTasks(): void {
@@ -35,7 +35,7 @@
             },
         },
     });
-    </script>
+</script>
 
 <style>
     .todoList-form {
