@@ -36,13 +36,13 @@
         },
         methods: {
             markComplete(id: number): void {
-                this.$emit('markComplete', id);
+                this.$emit('markComplete', id as number);
             },
             markImportant(id: number): void {
-                this.$emit('markImportant', id);
+                this.$emit('markImportant', id as number);
             },
             deleteTask(id: number): void {
-                this.$emit('deleteTask', id);
+                this.$emit('deleteTask', id as number);
             },
         },
     });
