@@ -1,5 +1,5 @@
 <template>
-    <div class="todoList" id="todoList">
+    <div class="todoList">
         <ToDoListForm @addTask="addTask"
                       @deleteAllTasks="deleteAllTasks" />
         <ToDoListList :sortedTasks="sortedTasks"
@@ -13,7 +13,7 @@
     import { defineComponent } from 'vue';
     import ToDoListForm from '@/components/ToDoListForm.vue';
     import ToDoListList from '@/components/ToDoListList.vue';
-    import { Task } from '@/components/task';
+    import Task from '@/models/Task';
 
     export default defineComponent({
         name: 'ToDoList',
