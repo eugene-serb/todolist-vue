@@ -1,14 +1,18 @@
 {
   "name": "todolist-vue",
   "description": "This is a simple to-do list web application in VueJS. Helps you organize tasks and plan projects.",
-  "keywords": [ "todolist", "to-do-list" ],
-  "version": "1.0.1",
+  "keywords": [ "todolist", "to-do-list", "todolist-vue", "vue.js" ],
+  "version": "1.0.2",
   "license": "GNU GPL v3",
-  "author": "Eugene Serb <eugene.serb@gmail.com>",
+  "author": {
+    "name": "Eugene Serb",
+    "email": "eugene.serb@gmail.com",
+    "url": "https://eugene-serb.github.io/"
+  },
   "homepage": "https://eugene-serb.github.io/todolist-vue/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eugene-serb/todolist-vue"
+    "url": "git+https://github.com/eugene-serb/todolist-vue.git"
   },
   "bugs": {
     "url": "https://github.com/eugene-serb/todolist-vue/issues"
